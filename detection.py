@@ -37,7 +37,7 @@ class speechDetection(object):
 
 
     def handle_command(self, words):
-        self.Log.log("Words detected: {} {}".format(type(words),words))
+        self.Log.log("Words detected: {}".format(words))
         for word in words:
             for color in self.command_list:
                 # Get first command in text input

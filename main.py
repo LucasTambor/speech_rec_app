@@ -36,7 +36,7 @@ if __name__ == '__main__':
     Mqtt = MqttIPC()
 
     # Utiliza modelo como hotword
-    detector = snowboydecoder.HotwordDetector(model, sensitivity=[0.5, 0.5])
+    detector = snowboydecoder.HotwordDetector(model, sensitivity=0.5)
 
     detectionHandler = speechDetection(detector, Mqtt)
 
