@@ -11,7 +11,7 @@ class MqttIPC(object):
 
     CLIENT_ID = "multivac_command"
 
-    #Topicos
+    #Topics
     MQTT_TOPIC_CMD = "multivac/cmd"   #Topic for commands send/recv
 
     #Connection Flag
@@ -21,7 +21,8 @@ class MqttIPC(object):
         self.Log = Logger("MqttIPC")
         self.Log.log("INIT")
 
-        self.client = mqtt.Client(self.CLIENT_ID) #Cria ID unica, broker bloqueia demais acessos com mesma ID
+        self.client = mqtt.Client(self.CLIENT_ID) #Creates unique ID
+
         # Register callbacks
         self.client.on_connect = self.on_connect
         self.client.on_disconnect = self.on_disconnect

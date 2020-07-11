@@ -10,11 +10,9 @@ class speechDetection(object):
 
     command_list = ["blue", "green" ,"red"]
 
-    def __init__(self, decoder, ipc):
+    def __init__(self, ipc):
         self.Log = Logger("speechDetection")
         self.Log.log("INIT")
-
-        self.decoder = decoder
         self.ipc = ipc
 
     def hotword_callback(self):

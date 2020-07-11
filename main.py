@@ -21,7 +21,7 @@ def interrupt_callback():
 
 
 if __name__ == '__main__':
-    # Confere se modelo foi passado como argumento
+    # Check model in args
     if len(sys.argv) == 1:
         print("Error: need to specify model name")
         print("Usage: python3 main.py your.model")
@@ -29,16 +29,17 @@ if __name__ == '__main__':
 
     model = sys.argv[1]
 
-    # Tratativa dos signals
+    # Signals handler
     signal.signal(signal.SIGINT, signal_handler)
 
     # Mqtt Inter Proccess Comunication Handler
     Mqtt = MqttIPC()
 
-    # Utiliza modelo como hotword
-    detector = snowboydecoder.HotwordDetector(model, sensitivity=0.5)
+    # Speech detection Handler
+    detectionHandler = speechDetection(Mqtt)
 
-    detectionHandler = speechDetection(detector, Mqtt)
+    # Use model as hotword
+    detector = snowboydecoder.HotwordDetector(model, sensitivity=0.5)
 
     # main loop
     detector.start(detected_callback=detectionHandler.hotword_callback,
