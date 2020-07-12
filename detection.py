@@ -17,6 +17,8 @@ class speechDetection(object):
 
     def hotword_callback(self):
         self.Log.log("Hotword detect")
+        # send status 0 to sound feedback
+        self.ipc.send_sound_off()
         # Play recognize sound - ding.wav
         snowboydecoder.play_audio_file()
         with self.mic as source:
@@ -50,7 +52,7 @@ class speechDetection(object):
             self.Log.log("No command detected")
 
     def send_command(self, command):
-        self.ipc.send(command)
+        self.ipc.send_camera(command)
 
 if __name__ == '__main__':
     pass

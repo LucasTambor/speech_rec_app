@@ -13,6 +13,7 @@ class MqttIPC(object):
 
     #Topics
     MQTT_TOPIC_CMD = "multivac/cmd"   #Topic for commands send/recv
+    MQTT_TOPIC_SOUND = "multivac/feedback"   #Topic for commands send/recv
 
     #Connection Flag
     connected = False
@@ -38,13 +39,20 @@ class MqttIPC(object):
         self.connected = False
         self.Log.log("Client disconected - {}".format(rc))
 
-    def send(self, command):
+    def send_camera(self, command):
         command_json = {
             "ID": self.CLIENT_ID,
             "CMD": command,
         }
         self.Log.log(json.dumps(command_json))
         self.client.publish(self.MQTT_TOPIC_CMD, json.dumps(command_json))
+    def send_sound_off(self):
+        command_json = {
+            "ID": self.CLIENT_ID,
+            "status": 0,
+        }
+        self.Log.log(json.dumps(command_json))
+        self.client.publish(self.MQTT_TOPIC_SOUND, json.dumps(command_json))
 
     def is_connected(self):
         return self.connected
