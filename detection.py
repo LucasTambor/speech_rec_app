@@ -8,7 +8,7 @@ class speechDetection(object):
     r = sr.Recognizer()
     mic = sr.Microphone()
 
-    command_list = ["blue", "green" ,"red"]
+    command_list = ["blue", "green" ,"red", "stop"]
 
     def __init__(self, ipc):
         self.Log = Logger("speechDetection")
@@ -39,11 +39,11 @@ class speechDetection(object):
     def handle_command(self, words):
         self.Log.log("Words detected: {}".format(words))
         for word in words:
-            for color in self.command_list:
+            for command in self.command_list:
                 # Get first command in text input
-                if word == color:
-                    self.Log.log("Command found: {}".format(color))
-                    self.send_command(color)
+                if word == command:
+                    self.Log.log("Command found: {}".format(command))
+                    self.send_command(command)
                     break
             else:
                 continue
