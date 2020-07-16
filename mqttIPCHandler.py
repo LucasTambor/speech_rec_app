@@ -6,6 +6,8 @@ from logger import Logger
 
 class MqttIPC(object):
     mqtt_broker_priv = "127.0.0.1"
+    mqtt_broker_pub = "test.mosquitto.org"
+
     mqtt_port = 1883
     mqtt_keep_alive = 60
 
@@ -28,8 +30,8 @@ class MqttIPC(object):
         self.client.on_connect = self.on_connect
         self.client.on_disconnect = self.on_disconnect
 
-        self.Log.log("Connecting to broker at {}".format(self.mqtt_broker_priv))
-        self.client.connect(self.mqtt_broker_priv, self.mqtt_port, self.mqtt_keep_alive)
+        self.Log.log("Connecting to broker at {}".format(self.mqtt_broker_pub))
+        self.client.connect(self.mqtt_broker_pub, self.mqtt_port, self.mqtt_keep_alive)
 
     def on_connect(self, client, userdata, flags, rc, properties=None):
         self.Log.log("Connection returned {}".format(rc))
@@ -46,6 +48,7 @@ class MqttIPC(object):
         }
         self.Log.log(json.dumps(command_json))
         self.client.publish(self.MQTT_TOPIC_CMD, json.dumps(command_json))
+
     def send_sound_off(self):
         command_json = {
             "ID": self.CLIENT_ID,

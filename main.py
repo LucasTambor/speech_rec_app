@@ -39,7 +39,7 @@ if __name__ == '__main__':
     detectionHandler = speechDetection(Mqtt)
 
     # Use model as hotword
-    detector = snowboydecoder.HotwordDetector(model, sensitivity=0.5)
+    detector = snowboydecoder.HotwordDetector(model, sensitivity=0.6)
 
     # main loop
     detector.start(detected_callback=detectionHandler.hotword_callback,
